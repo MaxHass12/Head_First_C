@@ -1,9 +1,8 @@
 #include <stdio.h>
 
-int main()
-{
-  float x = (float)10 / 3;
-  printf("%0.50f\n", x);
+int main() {
+  int c = 12345;
+  printf("c : %c\n", c);
 
   return 0;
 }

@@ -13,15 +13,17 @@
 - C programs normally begins with a comment. `/* */`
 
 - Next comes the include section. C is a very, very small language and it can do almost nothing without the use of external libraries. Need to tell the compiler which libraries to use by including the headers for the relevant file.
-- [] Where does the libraries live?
+- [?] Where does the libraries live?
 
-- All C code runs inside a function. Most important is the `main` function.
+- All C code runs inside a function. Most important is the `main` function. `main` is where the execution start. C program wont be able to run without the `main` function.
 
   - The return type is usually `int`. If the program ran successfully then it returns `0`. Any other return value means an error.
   - In the function declaration the return type precedes the function name and paranthesis `()`.
   - The function body is enclosed by curly braces `{}`
 
 - `printf` is used to display formatted input. It replaces format characters (those starting with `%`) with the value of the variables.
+- When we declare a string with `[]`, the size includes the end character. The size passed in `scanf` does not include the end.
+- `str[0]` <=> `*(str)`
 
 - `echo $?` gives the exit-status of most recently executed command.
 
@@ -35,24 +37,28 @@
 
 - In a Unix-style operating systems, programs are run only if we specify the directory where they live or if their directory is listen in the PATH environment variable.
 
-- C does not support strings out of the box. There are a number of C extension libraries which give us strings. `card_name` is just a variable name we use to refer to the list of characters entered at the command prompt.
+- C does not support strings out of the box. There are a number of C extension libraries which give us strings. We have to use arrays in place of strings.
+
+- In the given example, `card_name` is just a variable name we use to refer to the list of characters entered at the command prompt.
 
   - strings are stored as array of characters which can be accessed by square brackets.
-  - In a lot of languages, the computer keeps track of the size of an array. C gets to know the end of the array by the sentinel character or the null character `\0`.
+  - In a lot of languages, the computer keeps track of the size of an array. C gets to know the end of the array by the sentinel character or the NULL character `\0`.
   - Hence, while declaring the length of the array holding the string, the length is 1 more than the number of characters.
 
 - The index are an offset. It measures how far the character is from the first character.
 - Arrays are stored in consecutive bytes of memory. It quickly gets to that memory location that way.
 - Null or Sentinel Character denotes the end of the array. C has no way to track the length of array.
-- Single quotes are for individual characters, but double quotes are used for strings - called string literals. Only difference is that string literals are constants. Trying to update throws a bus error - means that program can't update that piece of code [] Need to check.
+- Single quotes are for individual characters, but double quotes are used for strings - called string literals.
+- Only difference between character array and string literals is that string literals are constants. ([?] Not exactly true, but its a decent enough working model)
+- Trying to update throws a bus error - means that program can't update that piece of code [?] Need to check.
 
 # 4. Two Types of Command
 
 - Most of the commands in C are statements [?]
 
-  - Simple statements are actions, they tell the system to do something.
+  - Simple statements are actions, they tell the system to do something. Few statement might be expressions in that they return a value (assignment, few function calls)
 
-  - Sometimes we group statements together to create block statements within curlhy braces.
+  - Sometimes we group statements together to create block statements within curly braces.
 
 - `if`, `else` are control statements which checks a condition before running the code. Most C Programmers skip `{}` if the block has only 1 line of code.
 
@@ -91,17 +97,19 @@
 
 - We can skip out of the loop by using `break` statement. Simplest and best way to end a loop. A `break` statement is used to break out of loops and also switch statement.
 
-- `break` does not skips from the `if` conditionals.
+- `break` does not breaks out from the `if` conditionals.
 
 - `continue` skips the current iteration and goes to the start of the loop ie goes to the loop condition.
 
 ## Extra
 
-- If a function takes arguments, then in the function declarations parameters have to be declared with the type.
+- The implicit return value of a `main` function is the `int` `0`.
+
+- If a function takes arguments, then in the function declarations parameters have to be declared with the type. The arguments are just a local variable that gets its value from the code that calls the function.
 
 - `void` functions or functions declared with `void` type do not return anything useful.
 
-- Almost everything in C has a return value, and not just function calls. Assignment returns the assigned value. `y = x = 4;` will assign both `y` and `x` to `4` since `x = 4` returns `4`.
+- Almost everything in C has a return value, and not just function calls ([?] This is contradictory to the earlier statement and possibly wrong. Only assignments have return value. All functions need not have return value) Assignment returns the assigned value. `y = x = 4;` will assign both `y` and `x` to `4` since `x = 4` returns `4`.
 
 - C is compiled to make the code fast. JS and Python are interpreted language, but use some sort of hidden compilation to improve their speed.
 

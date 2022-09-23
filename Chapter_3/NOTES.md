@@ -59,7 +59,19 @@
 
 # 9. By default, the Standard Error is sent to the display
 
+- The `printf()` function sends data to the Standard Output.
+
 - By default, the Standard Output goes to the display.
+
+- We can redirect Standard Output to a file by using `>` on command line.
+
+- `scanf()` reads data from the Standard Input
+
+- Standard Input reads data from the keyboard by default.
+
+- You can refirect the Standard Input to read from a file by using `<` on the command line.
+
+- The Standard Error is reserved for outputting error messages. You can redirect Standard Error using `2>`. By default, it prints to the screen.
 
 - If we redirect the Standard Output then the Standard Output will continue to send data to display.
 
@@ -69,8 +81,9 @@
 
 - `fprinft()` allows to choose where we want to send text to. We call tell `fprintf()` to send text to `stdout` or `stderr` by passing the destination as the first argument.
 
-- `stdin` is the standard input.
+- `stdin` is the Standard Input.
 - We can't print to `stdin`
+- We can read from the Standard Input using `fscanf()`
 - `scanf(..)` is equivalent to `fscanf(stdin, ...)`
 - `2>` redirects the standard error.
 
@@ -114,7 +127,7 @@
 
 ## Extra
 
-- It is important that small tools use Standard Input and Standard Output because it becomes easier to connect tools using pipes.
+- Use of Standard Input or Standard Output is important as small tools use Standard Input and Standard Output because it becomes easier to connect tools using pipes.
 - When 2 programs are connected using pipe, they both can run simultaneously.
 - We can connect several programs together.
 - `<` will send a file's content to the first process in the pipeline. `>` caputres the Standard Output from the last process in the pipeline. The paranthesis makes sure that data file is read by the first program in the pipeline.
@@ -127,7 +140,9 @@
 
 - We can create our own data streams as the program runs. Each data stream is represented by a pointer to a file. We can create a new data stream using the `fopen()` function.
 
-- `fopen()` takes 2 arguments : a filename and a mode. The mode can be `w` (to write), `r` (to read) and `a` (to append).
+- `FILE *` creates a data stream to read and write from a file.
+
+- `fopen()` takes 2 arguments : a filename and a mode. The mode can be `w` (to write), `r` (to read) and `a` (to append). Returns a pointer to the file.
 
 - Once we have created a data stream, we can print to it or read from it using `fprintf()` or `fscanf()`.
 
@@ -148,7 +163,7 @@ But, what if user wanted to search for different words instead of "ufos", etc ?
 
 - But we can pass command-line arguments to the program as array of strings if we define `main` with parameters like this `main(int argc, char *argv[])`. (Array of strings in C is array of character pointers to strings)
 
-- We need some way to knowing how long the array is, hence `argc` ([?] Why not `sizeof(argv)`. Because `argv` is a pointer and passing it as ar argument leads to information decay)
+- We need some way to knowing how long the array is, hence `argc` ([?] Why not `sizeof(argv)`. Because `argv` is a pointer and passing it as argument leads to pointer decay)
 
 - `argc` is the number of arguments passed. This includes the name of the program.
 
@@ -171,7 +186,10 @@ if (!(in = fopen("dont_exist.txt", "r")))
 
 # 20. Let the library do the work for you
 
-- Each invocation of `getopt` function returns the next function it finds on the command line.
+- Many programs use command-line options, so there is a special library function we can use to make dealing with them a little easier.
+
+- Each invocation of `getopt` function returns the next option it finds on the command line.
+
 - To use it, we need to include `unistd.h` header.
 
 - We use `getopt` inside a `while` conditional.

@@ -55,13 +55,13 @@
 
 - A function declaration is just a function signature - it records the name of the function, what kind of parameter it will accept and what type of data it will return.
 
-- We put a while bunch of function declarations at the start of our code.
+- We put a bunch of function declarations at the start of our code.
 
 - Event beter, C allows us to take a whole set of declarations out of our code and put them in header file.
 
 # 8. Creating your first header file
 
-- We can create a `.h` file and move their our function declarations.
+- We can create a `.h` file and move our function declarations to the new files.
 
 - Then we include `.h` file. We use `" "` instead of `< >` to wrap our header files as the file exists in the local directory.
 
@@ -70,14 +70,19 @@
 - ( `#include` is a preprocessor instruction )
 
 - since, `int` is what C assumes the functions to return, we need not necessarily have to declare `int` functions.
+
 - Preprocessing is the first stage in converting the raw C code into a working execitable. Processing step reads the content of header into the mail file.
+
 - `gcc` compiler knows where the standard headers are.
 
 ## Summary
 
-- If the compiler finds a call to a hitherto undeclared function, it will assume that the function returns `nil`.
+- If the compiler finds a call to a hitherto undeclared function, it will assume that the function returns `int`.
+
 - Function declaration tell the compiler what your function will look like before you define them. The function declaration appear at the top of the source code.
+
 - Function declaration are often put into header files.
+
 - The compiler treas the 'included' code the same as code that is typed into the source file.
 
 # 9. If you have common features ... it is good to share code
@@ -119,7 +124,7 @@ Now, how to make executable from several separate source files.
 
 - By breaking program into separate source files means we can break down programs into smaller self-contained pieces of code. For big projects, this means that rather than having 1 huge source file we can have a lot of simpler files which are easier to understand, maintain and test.
 
-- But, if we create programs which use more than a few files - the time it takes to compile the code starts to become iimportant. If we try out a single change, it is not possibel to see the result of that change quickly. It breaks the chain of thought.
+- But, if we create programs which use more than a few files - the time it takes to compile the code starts to become iimportant. If we try out a single change, it is not possible to see the result of that change quickly. It breaks the chain of thought.
 
 # 14. Don't recompile every file
 
@@ -138,6 +143,8 @@ Now, how to make executable from several separate source files.
 - The process takes 2 commands.
 
 - Now if we change 1 files then we just make `.o` file from the modified `.c` file.
+
+- This works because linking the object files to form the final executable file takes far less time than compiling the source files to form the object files.<<>>
 
 # 16. It's hard to keep track of the files
 
@@ -172,7 +179,6 @@ Now, how to make executable from several separate source files.
 
 - Then you put your target, dependencies separated by a colon on 1 line.
 - Recipe on the next line. (Must begin by a TAB character - VSC takes care of it)
-
 
 - Build tools like `ant` and `rake` are like `make`.
 - Once you have more than an handful of files, `make` become really important.

@@ -2,10 +2,10 @@
 
 - A pointer is just address of a piece of data in memory.
 
-- We use pointer because :
+- Pointers are used for a couple of reason :
 
   - Instead of passing around whole copy of data, you can just pass a pointer.
-  - We might want 2 pieces of code to work on the same piece of data.
+  - We might want 2 pieces of code to work on or modify the same piece of data rather than a separate copy of the data.
 
 - In short pointers help us avoid copies and share data. They are a form of indirection (aka dereferencing) ie the ability to reference something using name, container instead of the value itself.
 
@@ -13,7 +13,9 @@
 
 - Every time we declare a variable, the computer creates a space for it somewhere in memory.
 
-- A variable declared inside a function is usually stored in stack. A function declared outside a function is stored in globals.
+- A variable declared inside a function is usually stored in stack.
+
+- A function declared outside a function is stored in globals.
 
 - Why are local variables and global variables stored differently? Because they are used differently. We only have 1 copy of global variable.
 
@@ -23,13 +25,13 @@
 
 # 4. Set sail sou'east, Cap'n
 
-- C is pass-by-value. When we call a function, C makes a copy of the value associated with the variable and sends it as argument.
+- C is pass-by-value. When we call a function, C makes a copy of the value of the variable and sends it as the argument.
 
 - How do we write a program which updates a variable? By passing pointer or memory address of the variable.
 
 # 5. Try Passing a pointer to the variable
 
-- Passing pointers or addresses makes it possible to update the value of the variable or simply makes it possible to update the variable.
+- Passing pointers or addresses makes it possible to update the value of the variable or simply makes it possible to share memory.
 
 - This is one of the reason of using pointers.
 
@@ -56,7 +58,7 @@
 
 - If we declare a function to take pointer arguments, it is then able to modify the variable.
 
-- We can think of having a variable name and deferencing operator as 2 ways of accessing a value at a given memory location. (We can not use increment or decrement operator with deferencing operator though).
+- We can think of having a variable name and deferencing operator as 2 ways of accessing a value at a given memory location. (We can use increment or decrement - use parens for clarity).
 
 - The computer structures the physical memory in a more complex way. For most programs, you don't need to worry about the details of how the machine arranges its memory.
 
@@ -68,13 +70,16 @@
 
 - We declare arrays by we define the data type, specify the name of the array followed by square brackets ie `char msg[]` or `int nums[]`
 
-- In that case, the array variable is just the pointer to the start of the array in the memory. ie the array variable stores the address of the first element of an array. ([?] The book says that its the pointer to the string itself, not the pointer to the first character of string)
+- In that case, the array variable is just like a pointer to the start of the array in the memory. ie the array variable stores the address of the first element of an array. ([?] The book says that its the pointer to the string itself, not the pointer to the first character of string. imho, we can use strings and character of arrays interchangeably)
 
 - `sizeof()` operator returns the size of the data-type or the variable. It looks like a function, but it is an operator.
 
+- Definition of variable with array type needs an explicit size or an initializer.
+- `char *` can not be initialized to an array [?]
+
 # 9. What the computer thinks when it runs
 
-- Key point is that array variable can be used as a pointer. The array variable points to the first element in the array. If we declare an array argument to a function, it will be treated as a pointer.
+- Key point is that array variable can be used as a pointer. The array variable points to the first element in the array. If we declare an array parameter in a function declaration, it will be treated as a pointer.
 
 - An operator is compiled to a sequence of instructions by the compiler. If the code calls a function, it has to jump to a separate piece of code. Compiler can determine the size of storage at compile time.
 
@@ -88,9 +93,9 @@
 
 - The address of an array is .. just the array. Say `s` is an array variable ie address of the start of the array. `&s` means what the address of array - it is just `s`.
 
-- Array variables are not assignable. When we create a variable, machine allocates a distinct memory location to store it. If we create an array, computer will allocate space to store the array, but it wont allocate any memory to store the array variable. As array variables dont have allocated space, you can't point them at anything else.
+- Array variables are not assignable. When we create a variable, machine allocates a distinct memory location to store it. If we create an array, computer will allocate space to store the array, but it wont allocate any memory to store the array variable. As array variables dont have allocated space, you can't point them at anything else. (Array variables have an immutable binding to the array)
 
-- An array variable contains the address of the array and the size of the array. If we assign an array to a pointer, the pointer does not know anything about the size of the array. Usually happens when pass array variables as arguments to a function. In this case, the loss of information is called decay.
+- An array variable contains the address of the array and the size of the array. If we assign an array to a new pointer, the pointer does not know anything about the size of the array. Usually happens when pass array variables as arguments to a function. In this case, the loss of information is called pointer decay.
 
 # 10. Why arrays really start at 0
 
@@ -114,6 +119,8 @@
 
 - Array variables can be used as pointers, but array variable are not exactly the pointers. `sizeof` is different for array variables and pointers, array variables can not point to anything else and assigning an array variable to a pointer decays it.
 
+- Passing an array variable to a pointer decays it.
+
 - Array variables start at zero because of the pointer arithmetic.
 
 - Pointer variables have types so that C can adjust pointer arithmetic.
@@ -122,9 +129,11 @@
 
 - How does `scanf()` work ? Takes 2 argument, type of the variable and address of the variable. It expects the user to input and updates the variable according to the input.
 
-- Any function which updates a variable, wants the address of the variable as argument.
+- Any function which updates a variable, wants the address of the variable.
 
 - We can update the contents of multiple variable with `scanf()`
+
+- When declare the size of an array it includes the NULL character. `scanf` does not include that NULL character, so the size of the input mentioned in `scanf` is 1 less the size of the array.
 
 # 13. Be careful with scanf()
 
@@ -147,6 +156,8 @@
 - `fgets()` has a mandatory limit, for `scanf()` the limit is optional.
 - `scanf()` allows us to enter more than 1 data (or field), different kind of data and ability to specify what characters appear between fields. `fgets()` allows us to enter just 1 string.
 - `scanf()` can not read string with spaces. As soon as it reaches empty space `scanf()` stops reading. `fgets()` can read the whole string everytime.
+
+- If we want to enter structured data with several fields then `scanf`. If we enter single unstructured string then `fgets()` is probably the way to go.
 
 # 15. Anyone for three-card monte?
 
@@ -184,6 +195,8 @@
 
   ## Brief Summary and Extra Stuff
 
+  - If we see a declaration like `char cards[]` as a normal variable declaration then it means that `cards` is an array variable, and we have to set its value immediately. If we see `char cards[]` as a function parameter, then `cards` is a pointer.
+
   - If we see a `*` in a variable declaration, it means the variable will be a pointer.
   - String literals are stored in read-only memory.
   - If you need to modify a string, you need to make a copy of it in a new array.
@@ -193,7 +206,7 @@
   - String literals are stored in read-only memory because they are supposed to be constant.
   - String literals are read-only anyways. `const` just ensures compile time error if we want to modify string literal.
   - Different memory segments appear in the same order in all systems.
-  - Array variable is not stored in memory. Array variable won't exist in the final executable. That's OK because array variable will never point anywhere else.
+  - Array variable is not stored in memory. Array variable won't exist in the final executable. They are replaced with the address of the array. That's OK because array variable will never point anywhere else.
   - Declaration is a piece of code that declares that something exists ie a variable, function, etc exists.
 
 # 18. Memory Memorizer

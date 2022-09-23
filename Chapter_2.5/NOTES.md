@@ -8,6 +8,12 @@
 
 - We access the individual string by `tracks[i]`. We access the character within the string by `tracks[i][j]`
 
+- We dont need to mention the length of the array in the first square bracket because if we are hardcoding the nested array then the compiler can tell it for us.
+
+- Strings must end in the NULL character. The NULL character gets included in the length of the array.
+
+- `%s` prints a string until it encounters a NULL character. If length of array is not 1 greater than the elements, then there is no space for NULL character. This always happen when we do not explicitly mention the size of the `char` array and initialize it with a string literal.
+
 # 3. Find string containing search text
 
 - The C Standard Library is a bunch of useful code that we get with the C compiler. That Library is broken up into several sections and each when has a header `.h` file.
