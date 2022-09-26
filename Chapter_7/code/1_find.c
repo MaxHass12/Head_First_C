@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+
+int NUM_ADS = 7;
+char *ADS[] = {"William: SBM GSOH likes sports, TV, dining",
+               "Matt: SWM NS likes books, theater, art",
+               "Luis: SLM ND likes trucks, sports and bieber",
+               "Mike: DWM DS likes art, movies, theater",
+               "Peter: SAM likes chess, working out and art",
+               "Josh: SJM likes sports, movies and theater",
+               "Jed: DBM likes theater, books and dining"};
+
+void find(int (*match)(char *)) {
+  int i;
+  puts("Search results:");
+  puts("---------------");
+  for (i = 0; i < NUM_ADS; i++) {
+    if (match(ADS[i])) {
+      printf("%s\n", ADS[i]);
+    }
+  }
+  puts("---------------");
+}
+
+int sports_no_bieber(char *s) {
+  return strstr(s, "sports") && !strstr(s, "bieber");
+}
+
+int main() {
+  find(sports_no_bieber);
+  return 0;
+}
